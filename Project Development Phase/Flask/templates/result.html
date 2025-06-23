@@ -1,0 +1,49 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url('/static/background_img1.jpg');
+            background-size: cover;             /* Full screen */
+            background-repeat: no-repeat;       /* Don't repeat */
+            background-position: center center; /* Centered image */
+            background-attachment: fixed;       /* Optional: parallax effect */
+            color: rgb(0, 0, 0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        #prediction {
+            font-size: 28px;
+            color: lime;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Volume Prediction</h1>
+    <p id="prediction">Loading...</p>
+
+    <script>
+        const result = sessionStorage.getItem("prediction");
+        if (result) {
+            document.getElementById("prediction").textContent = result;
+        } else {
+            document.getElementById("prediction").textContent = "No prediction found.";
+        }
+    </script>
+</body>
+</html>
