@@ -1,73 +1,148 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Traffic Volume Estimation</title>
     <style>
-        body { color: white; }
-        h1 { color: white; }
-        label { font-weight: bold; }
+        body {
+            background-image: url('/static/homepage_image.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .Login {
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px #000;
+        }
+
+        h1 {
+            color: #ffcc00;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #ffcc00;
+        }
+
+        button {
+            height: 35px;
+            width: 100%;
+            background-color: #ffcc00;
+            border: none;
+            color: black;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ffaa00;
+        }
+
+        .tooltip {
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
-<body style="background-image: url('/static/homepage_image.jpg')">
-<div class="Login">
-    <center><h1>Traffic Volume Estimation</h1></center>
-    <form action="{{ url_for('predict') }}" method="post">
-        <h1>Please enter the following details</h1>
+<body>
+    <div class="Login">
+        <center><h1>Traffic Volume Estimation</h1></center>
+        <form id="predictForm" action="{{ url_for('predict') }}" method="post">
+            <h2>Please enter the following details</h2>
 
-        <!-- Inputs -->
-        <label>Temp:</label><input type="number" name="temp" required /><br><br>
-        <label>Rain:</label><input type="number" min="0" max="1" name="rain" required /><br><br>
-        <label>Snow:</label><input type="number" min="0" max="1" name="snow" required /><br><br>
-        <label>Day:</label><input type="number" min="1" max="31" name="day" required /><br><br>
-        <label>Month:</label><input type="number" min="1" max="12" name="month" required /><br><br>
-        <label>Year:</label><input type="number" min="2012" max="2099" name="year" required /><br><br>
-        <label>Hours:</label><input type="number" min="0" max="23" name="hours" required /><br><br>
-        <label>Minutes:</label><input type="number" min="0" max="59" name="minutes" required /><br><br>
-        <label>Seconds:</label><input type="number" min="0" max="59" name="seconds" required /><br><br>
+            <label>Temp:</label>
+            <input type="number" name="temp" required />
+            <div class="tooltip">Temperature in °C</div>
 
-        <label for="weather_v2">Weather:</label>
-        <select id="weather_v2" name="weather_v2">
-            <option value="0">Clouds</option>
-            <option value="1">Clear</option>
-            <option value="2">Fog</option>
-            <option value="3">Rain</option>
-            <option value="4">Mist</option>
-            <option value="5">Haze</option>
-            <option value="6">Drizzle</option>
-            <option value="7">Thunderstorm</option>
-            <option value="8">Snow</option>
-            <option value="9">Squall</option>
-            <option value="10">Smoke</option>
-        </select><br><br>
+            <label>Rain (0 or 1):</label>
+            <input type="number" min="0" max="1" name="rain" required />
 
-        <label for="holiday_v2">Holiday:</label>
-        <select id="holiday_v2" name="holiday_v2">
-            <option value="5">None</option>
-            <option value="1">Columbus Day</option>
-            <option value="3">Veterans Day</option>
-            <option value="8">Thanksgiving Day</option>
-            <option value="7">Christmas Day</option>
-            <option value="11">New Year's Day</option>
-            <option value="4">Washington's Birthday</option>
-            <option value="6">Memorial Day</option>
-            <option value="10">Independence Day</option>
-            <option value="2">State Fair</option>
-            <option value="9">Labour Day</option>
-            <option value="0">Martin Luther King Jr Day</option>
-        </select><br><br>
+            <label>Snow (0 or 1):</label>
+            <input type="number" min="0" max="1" name="snow" required />
 
-        <button type="submit" style="height:30px;width:200px">Predict</button>
-    </form>
+            <label>Day:</label>
+            <input type="number" min="1" max="31" name="day" required />
 
-    <!-- JS logic for redirecting with prediction -->
-    {% if prediction_text %}
-    <script>
-        sessionStorage.setItem("prediction", "{{ prediction_text }}");
-        window.location.href = "/result";
-    </script>
-    {% endif %}
-</div>
+            <label>Month:</label>
+            <input type="number" min="1" max="12" name="month" required />
+
+            <label>Year:</label>
+            <input type="number" min="2012" max="2099" name="year" required />
+
+            <label>Hours:</label>
+            <input type="number" min="0" max="23" name="hours" required />
+
+            <label>Minutes:</label>
+            <input type="number" min="0" max="59" name="minutes" required />
+
+            <label>Seconds:</label>
+            <input type="number" min="0" max="59" name="seconds" required />
+
+            <label for="weather_v2">Weather:</label>
+            <select id="weather_v2" name="weather_v2">
+                <option value="0">Clouds</option>
+                <option value="1">Clear</option>
+                <option value="2">Fog</option>
+                <option value="3">Rain</option>
+                <option value="4">Mist</option>
+                <option value="5">Haze</option>
+                <option value="6">Drizzle</option>
+                <option value="7">Thunderstorm</option>
+                <option value="8">Snow</option>
+                <option value="9">Squall</option>
+                <option value="10">Smoke</option>
+            </select>
+
+            <label for="holiday_v2">Holiday:</label>
+            <select id="holiday_v2" name="holiday_v2">
+                <option value="5">None</option>
+                <option value="1">Columbus Day</option>
+                <option value="3">Veterans Day</option>
+                <option value="8">Thanksgiving Day</option>
+                <option value="7">Christmas Day</option>
+                <option value="11">New Year's Day</option>
+                <option value="4">Washington's Birthday</option>
+                <option value="6">Memorial Day</option>
+                <option value="10">Independence Day</option>
+                <option value="2">State Fair</option>
+                <option value="9">Labour Day</option>
+                <option value="0">Martin Luther King Jr Day</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+        <script>
+            
+            sessionStorage.setItem("prediction", "{{ prediction_text }}");
+            window.location.href = "/result";
+        </script>
+        {% endif %}
+    </div>
 </body>
 </html>
