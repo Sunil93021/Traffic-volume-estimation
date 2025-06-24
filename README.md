@@ -108,15 +108,3 @@ These files can be loaded for predictions using unseen data.
 4. Box Plots:
    Highlights potential outliers in numeric data.
 
----
-
-## Future Enhancements
-- Incorporate additional features like road conditions or real-time traffic updates.
-- Experiment with hyperparameter tuning to improve model performance.
-- Deploy the model as a web application or API for real-time traffic volume predictions.
-
----
-
-## Authors
-- **Sarvesh Adithya J**: Developer and Data Scientist.
-
