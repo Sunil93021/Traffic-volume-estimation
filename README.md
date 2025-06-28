@@ -17,6 +17,10 @@ This project predicts traffic volume using historical data and machine learning 
 - [Visualizations](#visualizations)
 
 ---
+## Project Overview
+- **video**: https://youtu.be/4DoyAhc6Y-I
+
+---
 
 ## Features
 The dataset includes the following features:
@@ -107,4 +111,3 @@ These files can be loaded for predictions using unseen data.
    Displays distributions of categorical variables.
 4. Box Plots:
    Highlights potential outliers in numeric data.
-
